@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alan Huang — Stanford CS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f7f5f0;
+      --text:      #1a1814;
+      --muted:     #888070;
+      --muted-strong:     #8880701e;
+      --accent:    #8C1515;
+      --border:    rgba(26,24,20,0.10);
+      --mono:      'DM Mono', monospace;
+      --serif:     'DM Serif Display', serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(238, 235, 228, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-name {
+      font-family: var(--mono);
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      text-transform: lowercase;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-name:hover { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: lowercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    #hero {
+      padding: 8rem 0 6rem;
+    }
+
+    #hero .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    #hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 6vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+    }
+
+    #hero h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    #hero .bio {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .hero-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+
+    .item-list { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 2rem;
+      align-items: start;
+    }
+
+    .item-year {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .item-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
+    }
+
+    .item-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.6rem;
+    }
+
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .tag-pill {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 2px 10px;
+    }
+
+    /* forces link chip onto a new row */
+    .tag-break {
+      width: 100%;
+      height: 0;
+    }
+
+    /* link chip — same as tag-pill, just slightly darker border + text */
+    .tag-link {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: #5a5448;
+      border: 1px solid rgba(26,24,20,0.25);
+      border-radius: 100px;
+      padding: 2px 10px;
+      text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .tag-link:hover {
+      color: var(--text);
+      border-color: rgba(26,24,20,0.45);
+    }
+
+    .writing-list { display: flex; flex-direction: column; }
+
+    .writing-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    .writing-item:last-child { border-bottom: none; }
+    .writing-item:hover .writing-title { color: var(--accent); }
+
+    .writing-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .writing-date {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    #about p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+      max-width: 560px;
+    }
+
+    #about p:last-child { margin-bottom: 0; }
+
+    footer {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-note {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-socials a {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--accent); }
+
+    @media (max-width: 560px) {
+      .item { grid-template-columns: 1fr; gap: 0.3rem 0; }
+      .item-year { font-size: 0.7rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <div class="container">
+      <a href="#hero" class="nav-name">alan huang</a>
+      <ul class="nav-links">
+        <li><a href="#research">research</a></li>
+        <li><a href="#projects">projects</a></li>
+        <!-- <li><a href="#writing">writing</a></li> -->
+        <li><a href="#about">about</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="container">
+      <p class="tag">CS @ Stanford University</p>
+      <!-- <h1>Alan Huang<br /><em>builds things &amp; thinks hard</em></h1> -->
+      <h1>Alan Huang</h1>
+      <!-- <p class="bio">
+        Hi! I'm a computer science student at Stanford interested in [your interests —
+        e.g. systems, machine learning, HCI]. I like building tools that are both
+        useful and well-crafted.
+      </p> -->
+      <p class="bio">
+        Hi! I'm a computer science student at Stanford interested in machine learning and HCI. I like building tools that are both
+        useful and well-crafted.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:alanhuang@stanford.edu">email</a>
+        <a href="https://github.com/alanhuang05" target="_blank">github</a>
+        <a href="https://www.linkedin.com/in/alanxhuangg/" target="_blank">linkedin</a>
+        <a href="files/resume.pdf" target="_blank">résumé ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="container">
+      <p class="section-label">Research</p>
+      <div class="item-list">
+
+        <div class="item">
+          <span class="item-year">2025</span>
+          <div>
+            <p class="item-title">Robust Deepfake Detection via Synthetic Domain Alignment</p>
+            <p class="item-desc">
+              Proposes Synthetic Domain Alignment (SDA) to improve deepfake detector
+              robustness against domain shifts — using an unconditional generative model
+              to synthesize samples across source and target domains without requiring
+              direct access to the original source data.
+            </p>
+            <div class="item-tags">
+              <span class="tag-pill">machine learning</span>
+              <span class="tag-pill">computer vision</span>
+              <span class="tag-pill">IEEE MASS 2025</span>
+              <span class="tag-break"></span>
+              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11206208" target="_blank">link ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <span class="item-year">2025</span>
+          <div>
+            <p class="item-title">Predicting Diabetes with Medical and Demographic Data</p>
+            <p class="item-desc">
+              Explores machine learning approaches for early diabetes prediction using
+              combined medical and demographic features, targeting improved screening
+              for asymptomatic patients in early disease stages.
+            </p>
+            <div class="item-tags">
+              <span class="tag-pill">machine learning</span>
+              <span class="tag-pill">classification</span>
+              <span class="tag-pill">healthcare</span>
+              <span class="tag-pill">CSEE 2025</span>
+              <span class="tag-break"></span>
+              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11037856" target="_blank">link ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Projects</p>
+    <div class="item-list">
+
+      <div class="item">
+        <span class="item-year">2026</span>
+        <div>
+          <p class="item-title">CS129 / Multi-Label Hate Crime Bias Classification</p>
+          <p class="item-desc">
+            Trained and compared five classifiers — Logistic Regression, Decision Tree,
+            Random Forest, XGBoost, and a majority baseline — to predict bias motivation
+            category (race, religion, sexual orientation, etc.) across 32,508 California
+            hate crime incidents. Tackled severe class imbalance with SMOTE and stratified
+            splitting. Built for Stanford's ML class (CS129: Applied Machine Learning).
+          </p>
+          <div class="item-tags">
+            <span class="tag-pill">machine learning</span>
+            <span class="tag-pill">python</span>
+            <span class="tag-pill">xgboost</span>
+            <span class="tag-break"></span>
+            <a class="tag-link" href="https://github.com/AustinCLieu/Multi-Label-Classification-of-Bias-Motivations-in-Reported-Hate-Crimes" target="_blank">github ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-year">2026</span>
+        <div>
+          <p class="item-title">CS124 / Movie Recommendation Agent</p>
+          <p class="item-desc">
+            Conversational AI agent that recommends movies based on user preferences,
+            answers questions about current releases using an LLM, and can book tickets.
+            Built for Stanford's NLP class (CS124: From Languages to Information).
+          </p>
+          <div class="item-tags">
+            <span class="tag-pill">python</span>
+            <span class="tag-pill">nlp</span>
+            <span class="tag-pill">chatbot</span>
+            <span class="tag-break"></span>
+            <a class="tag-link" href="https://github.com/AustinCLieu/Movie-Recommendation-Agent" target="_blank">github ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- candidates for replacement -->
+<!-- Experience — internships, jobs, research positions in a timeline format (similar to your existing research layout) -->
+<!-- Coursework — notable Stanford classes, especially if you've done interesting projects in them -->
+
+<!-- <section id="writing">
+    <div class="container">
+      <p class="section-label">Writing</p>
+      <div class="writing-list">
+        <a class="writing-item" href="#">
+          <span class="writing-title">Title of a blog post or essay</span>
+          <span class="writing-date">Dec 2024</span>
+        </a>
+        <a class="writing-item" href="#">
+          <span class="writing-title">Something you wrote about a technical topic</span>
+          <span class="writing-date">Sep 2024</span>
+        </a>
+        <a class="writing-item" href="#">
+          <span class="writing-title">A reflection, tutorial, or opinion piece</span>
+          <span class="writing-date">May 2024</span>
+        </a>
+      </div>
+    </div>
+  </section> -->
+
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <!-- <p>
+        I'm a sophomore undergraduate at Stanford studying Computer
+        Science, with a focus on AI. Previously I interned
+        at [Company] and worked on [thing].
+      </p> -->
+      <p>
+        I'm a sophomore undergraduate at Stanford studying Computer
+        Science, with a focus on AI.
+      </p>
+      <!-- <p>
+        Outside of work I [hobby, sport, interest] and occasionally [something
+        personal and genuine]. I'm originally from Carmel, Indiana.
+      </p> -->
+      <p>
+        Outside of work I enjoy working out, trying new foods, and occasionally playing video games (TFT is my current favorite). I'm originally from Carmel, Indiana.
+      </p>
+      <p>
+        If you want to collaborate or just chat, reach me at
+        <a href="mailto:alanhuang@stanford.edu" style="color:var(--accent);text-underline-offset:3px;">alanhuang@stanford.edu</a>!
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <!-- <span class="footer-note">© 2026 Alan Huang</span> -->
+       <span class="footer-note">Alan Huang</span>
+      <ul class="footer-socials">
+        <li><a href="https://github.com/alanhuang05" target="_blank">github</a></li>
+        <!-- <li><a href="https://www.linkedin.com/in/alanxhuangg/" target="_blank">linkedin</a></li> -->
+        <li><a href="mailto:alanhuang@stanford.edu" target="_blank">email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
