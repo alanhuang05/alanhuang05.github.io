@@ -196,6 +196,15 @@
       margin-bottom: 0.4rem;
     }
 
+    .item-subtitle {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
     .item-desc {
       font-size: 0.88rem;
       color: var(--muted);
@@ -339,6 +348,7 @@
     <div class="container">
       <a href="/" class="nav-name" onclick="event.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); history.pushState(null,'',window.location.pathname);">alan huang</a>
       <ul class="nav-links">
+        <li><a href="#experience">experience</a></li>
         <li><a href="#research">research</a></li>
         <li><a href="#projects">projects</a></li>
         <!-- <li><a href="#writing">writing</a></li> -->
@@ -358,13 +368,62 @@
         useful and well-crafted.
       </p> -->
       <p class="bio">
-        Hi! I'm a computer science student at Stanford interested in machine learning and HCI. I enjoy building tech that helps people.
+        Hi! I'm a computer science student at Stanford interested in machine learning, computer vision, and HCI. I enjoy building tech that helps people.
       </p>
       <div class="hero-links">
         <a href="mailto:alanhuang@stanford.edu">email</a>
         <a href="https://github.com/alanhuang05" target="_blank">github</a>
         <a href="https://www.linkedin.com/in/alanxhuangg/" target="_blank">linkedin</a>
         <a href="files/resume.pdf" target="_blank">résumé ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Experience</p>
+      <div class="item-list">
+
+        <div class="item">
+          <span class="item-year">2026</span>
+          <div>
+            <p class="item-title">Software Engineer Intern</p>
+            <p class="item-subtitle">Walmart Global Tech · Bentonville, AR</p>
+            <p class="item-desc">
+              Built internal tooling for the Walmart Fulfillment Services (WFS) team to help
+              seller-support agents look up order status and shipping exceptions, reducing
+              average issue resolution time. Wrote Python scripts to parse and clean logistics
+              data across warehouse sources for daily seller performance reports, and contributed
+              bug fixes and test updates to the team's Java-based order tracking service.
+            </p>
+            <div class="item-tags">
+              <span class="tag-pill">python</span>
+              <span class="tag-pill">software development</span>
+              <span class="tag-pill">internal tooling</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <span class="item-year">2025</span>
+          <div>
+            <p class="item-title">AI Research Intern</p>
+            <p class="item-subtitle">National Science Foundation · Indianapolis, IN</p>
+            <p class="item-desc">
+              Selected for the NSF REU Site on data and mobile cloud security at Purdue University.
+              Researched deepfake detection, developing a synthetic domain alignment approach to
+              improve model robustness across diverse datasets, combining techniques from machine
+              learning, computer vision, and cybersecurity to strengthen detection against
+              adversarial media manipulation. Findings presented at IEEE MASS 2025.
+            </p>
+            <div class="item-tags">
+              <span class="tag-pill">machine learning</span>
+              <span class="tag-pill">computer vision</span>
+              <span class="tag-pill">research</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -389,7 +448,7 @@
               <span class="tag-pill">computer vision</span>
               <span class="tag-pill">IEEE MASS 2025</span>
               <span class="tag-break"></span>
-              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11206208" target="_blank">link ↗</a>
+              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11206208" target="_blank">DOI ↗</a>
             </div>
           </div>
         </div>
@@ -409,7 +468,7 @@
               <span class="tag-pill">healthcare</span>
               <span class="tag-pill">CSEE 2025</span>
               <span class="tag-break"></span>
-              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11037856" target="_blank">link ↗</a>
+              <a class="tag-link" href="https://ieeexplore.ieee.org/document/11037856" target="_blank">DOI ↗</a>
             </div>
           </div>
         </div>
@@ -422,6 +481,46 @@
   <div class="container">
     <p class="section-label">Projects</p>
     <div class="item-list">
+
+      <div class="item">
+        <span class="item-year">2026</span>
+        <div>
+          <p class="item-title">CS111 / OS: Crash-Consistent Filesystem &amp; Encrypted VMem</p>
+          <p class="item-desc">
+            Implemented a Unix V6 filesystem reader in C with write-ahead journaling and
+            crash recovery, restoring consistency after simulated mid-write failures. Built
+            a memory-mapped encrypted file system in C++ using the Clock page-replacement
+            algorithm across 128 physical memory pages, cutting page faults 27% versus a
+            naive FIFO baseline. Built for Stanford's OS class (CS111: Operating Systems).
+          </p>
+          <div class="item-tags">
+            <span class="tag-pill">c</span>
+            <span class="tag-pill">c++</span>
+            <span class="tag-pill">systems</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="item-year">2026</span>
+        <div>
+          <p class="item-title">CS146J / Rolyn</p>
+          <p class="item-desc">
+            Filipino classifieds platform connecting families and workers for services
+            like tutoring, cleaning, and childcare. Built with a team for Stanford's
+            full-stack web dev class (CS146J); implemented the listing detail page and
+            authentication backend using Supabase Auth and JWTs.
+          </p>
+          <div class="item-tags">
+            <span class="tag-pill">full-stack</span>
+            <span class="tag-pill">javascript</span>
+            <span class="tag-pill">supabase</span>
+            <span class="tag-pill">sql</span>
+            <span class="tag-break"></span>
+            <a class="tag-link" href="https://github.com/cs146j-26sp/Rolyn" target="_blank">github ↗</a>
+          </div>
+        </div>
+      </div>
 
       <div class="item">
         <span class="item-year">2026</span>
@@ -470,7 +569,6 @@
 
 
 <!-- candidates for replacement -->
-<!-- Experience — internships, jobs, research positions in a timeline format (similar to your existing research layout) -->
 <!-- Coursework — notable Stanford classes, especially if you've done interesting projects in them -->
 
 <!-- <section id="writing">
@@ -503,7 +601,7 @@
       </p> -->
       <p>
         I'm a sophomore undergraduate at Stanford studying Computer
-        Science, with a focus on AI.
+        Science, with a focus on AI. Previously I interned at Walmart on the WFS team.
       </p>
       <!-- <p>
         Outside of work I [hobby, sport, interest] and occasionally [something
