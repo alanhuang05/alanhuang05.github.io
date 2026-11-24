@@ -212,6 +212,19 @@
       margin-bottom: 0.6rem;
     }
 
+    .item-desc a {
+      color: #a8574f;
+      text-decoration: underline;
+      text-decoration-color: rgba(168, 87, 79, 0.35);
+      text-underline-offset: 3px;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+
+    .item-desc a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+
     .item-tags {
       display: flex;
       flex-wrap: wrap;
